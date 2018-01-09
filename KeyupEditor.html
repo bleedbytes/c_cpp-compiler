@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <title>HTML KEYUP EDITOR</title>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
+        <script src="ace/src-noconflict/ace.js"></script>
+         <script src="ace/src-noconflict/ext-language_tools.js"></script>
+       <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <style>
+           
+         #editor {
+   width: 100%;
+  height: 100%;
+   font-size: 18px;
+    margin-top: 0;
+}
+    iframe{
+         border: 5px solid #B0C4DE;
+        background: white;
+         height: 90%;
+         width: 48%;
+        float: right;
+     }
+            .cont{
+               height: 50px;
+            }
+            h21{
+                color: #7CFC00;
+                float: left;
+                font-size: 25px;
+                font-weight: bold;
+            }
+            h31{
+                float: right;
+                margin-right: 40%;
+                font-size: 25px;
+                font-weight: bold;
+            }
+            h1{
+                color: #FFD700;
+            }
+             input[type=button]{
+            padding: 15px 30px;
+            border-radius: 4px;
+            background-color: #10EE12;
+            border: none;
+            font-size: 15px;
+            color: white;
+           }
+             #outr{
+    width: 48%;
+    height: 90%;
+    float: left;
+         border: 2px solid #F0F8FF;
+         border-radius: 4px;
+    }
+    #iner{
+        width: 100%;
+        height: 40px;
+        
+        border-radius: 4px;
+        background: #FAEBD7;
+    }
+    #dwn{
+        background: none;
+        height: 35px;
+         padding: 10px 15px;float: right;
+        border: none;
+    }
+    .fa-download{
+       font-size: 20px;
+    }
+    select{
+        height: 30px;
+        border-radius: 4px;
+        font-size: 18px;
+    }
+    label{
+        color: firebrick;
+        font-size: 20px;
+        font-weight: bold;
+    }
+        </style>
+    </head>
+    <body bgcolor="#5F9EA0">
+        <div id="main">
+            <center><h1>ONLINE KEYUP EDITOR</h1></center>
+             <label> SELECT THEME:</label> <select id="theme" onchange="themchng()">
+        <option value="twilight" >Twilight</option>
+            <option value="monokai">Monokai</option>
+            <option value="terminal">Terminal</option>
+            <option value="eclipse">Eclipse</option>
+            <option value="tomorrow_night_blue">Tomorrow night blue</option>
+        <option value="iplastic">Iplastic</option>
+        <option value="merbivore_soft">Merbivore Soft</option>
+        <option value="cobalt">Cobalt</option>
+        </select>
+           
+    <div class="cont">
+        <h21>Type your Code:</h21>
+        <h31>Output:</h31>
+        </div>
+        
+       <div id="outr"> 
+          <div id="iner">
+         <button type="button" onclick="downld()" id="dwn"><i class="fa fa-download fa-fw"style="color:black"></i></button>
+          </div>
+     <div id="editor" onkeyup="disp()">
+</div>
+</div>
+<iframe name="tragetCode" id="myframe"></iframe>
+    
+   <script>
+   var editor = ace.edit("editor");
+   editor.setTheme("ace/theme/twilight");
+   editor.getSession().setMode("ace/mode/html");
+       editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion:true
+    });
+       function themchng(){
+           var thems=document.getElementById('theme').value;
+        editor.setTheme("ace/theme/"+thems);
+         
+       }
+ function disp(){
+           var x = editor.getValue();
+     document.getElementById('myframe').srcdoc=x;
+       }
+       
+       function downld(){
+         var textToWrite = editor.getValue();
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+            var fileNameToSaveAs = "myNewFile.html";
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "My Hidden Link";
+            window.URL = window.URL || window.webkitURL;
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+    }
+    function destroyClickedElement(event) {
+            document.body.removeChild(event.target);
+        }
+    </script>
+            </div>
+    </body>
+</html>
